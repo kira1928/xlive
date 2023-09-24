@@ -4,6 +4,8 @@ package recorders
 import (
 	"bytes"
 	"context"
+	"database/sql"
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"os"
@@ -19,11 +21,16 @@ import (
 
 	"github.com/bluele/gcache"
 	"github.com/sirupsen/logrus"
+	"nhooyr.io/websocket"
+	"nhooyr.io/websocket/wsjson"
 
 	"github.com/hr3lxphr6j/bililive-go/src/configs"
 	"github.com/hr3lxphr6j/bililive-go/src/instance"
 	"github.com/hr3lxphr6j/bililive-go/src/interfaces"
 	"github.com/hr3lxphr6j/bililive-go/src/live"
+	"github.com/hr3lxphr6j/bililive-go/src/live/bilibili"
+	"github.com/hr3lxphr6j/bililive-go/src/live/douyu"
+	"github.com/hr3lxphr6j/bililive-go/src/live/huya"
 	"github.com/hr3lxphr6j/bililive-go/src/pkg/events"
 	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser"
 	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser/ffmpeg"
@@ -83,8 +90,9 @@ type recorder struct {
 	parser     parser.Parser
 	parserLock *sync.RWMutex
 
-	stop  chan struct{}
-	state uint32
+	stop      chan struct{}
+	stopDanmu chan struct{}
+	state     uint32
 }
 
 func NewRecorder(ctx context.Context, live live.Live) (Recorder, error) {
@@ -99,6 +107,7 @@ func NewRecorder(ctx context.Context, live live.Live) (Recorder, error) {
 		logger:     inst.Logger,
 		state:      begin,
 		stop:       make(chan struct{}),
+		stopDanmu:  make(chan struct{}),
 		parserLock: new(sync.RWMutex),
 	}, nil
 }
@@ -156,7 +165,9 @@ func (r *recorder) tryRecord(ctx context.Context) {
 	r.setAndCloseParser(p)
 	r.startTime = time.Now()
 	r.getLogger().Debugln("Start ParseLiveStream(" + url.String() + ", " + fileName + ")")
+	go r.runDanmu(ctx, fileName)
 	r.getLogger().Println(r.parser.ParseLiveStream(ctx, url, r.Live, fileName))
+	close(r.stopDanmu)
 	r.getLogger().Debugln("End ParseLiveStream(" + url.String() + ", " + fileName + ")")
 	removeEmptyFile(fileName)
 	ffmpegPath, err := utils.GetFFmpegPath(ctx)
@@ -241,6 +252,105 @@ func (r *recorder) run(ctx context.Context) {
 			r.tryRecord(ctx)
 		}
 	}
+}
+
+type BadanmuResponseUserInfo struct {
+	Gender   int
+	UserId   int
+	UserName string
+}
+type BadanmuResponse struct {
+	CommonType int
+	Data       string
+	RoomId     string
+	Type       string
+	Code       int
+	Ts         int
+	PlayerName string
+	UserInfo   BadanmuResponseUserInfo
+}
+
+func (r *recorder) runDanmu(ctx context.Context, fileName string) {
+	obj, _ := r.cache.Get(r.Live)
+	info := obj.(*live.Info)
+	platformCnName := info.Live.GetPlatformCNName()
+	platform := ""
+	roomId := ""
+	switch platformCnName {
+	case huya.CnName:
+		platform = "huya"
+		roomId = info.Live.(*huya.Live).RoomId
+	case douyu.CnName:
+		platform = "douyu"
+		roomId = info.Live.(*douyu.Live).RoomID
+	case bilibili.CnName:
+		platform = "bilibili"
+		roomId = info.Live.(*bilibili.Live).RealID
+	default:
+		// todo error log
+		return
+	}
+
+	// todo customize port in config
+	url := "ws://badanmu:8181/"
+	c, _, err := websocket.Dial(ctx, url, &websocket.DialOptions{})
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer c.Close(websocket.StatusInternalError, "runDanmu() finished")
+
+	v := BadanmuResponse{}
+	var db *sql.DB
+	r.stopDanmu = make(chan struct{})
+	for {
+		select {
+		case <-r.stopDanmu:
+			return
+		default:
+			err := wsjson.Read(ctx, c, &v)
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+			switch v.CommonType {
+			case 1001:
+				if v.Data == "success" {
+					db, err = utils.CreateDanmuFile(strings.TrimSuffix(fileName, filepath.Ext(fileName)) + ".sqlite")
+					if err != nil {
+						fmt.Println(err.Error())
+						return
+					}
+				} else {
+					err = wsjson.Write(ctx, c, map[string]string{
+						"type":     "login",
+						"platform": platform,
+						"roomId":   roomId,
+					})
+					if err != nil {
+						fmt.Println(err.Error())
+						return
+					}
+				}
+			case 0:
+				switch v.Type {
+				case "comment":
+					err := utils.AddDanmuRecord(db, v.PlayerName, v.Data, v.UserInfo.UserId, v.Ts)
+					if err != nil {
+						fmt.Println(err.Error())
+						return
+					}
+				}
+			}
+			b, err := json.Marshal(v)
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+			fmt.Println(string(b))
+		}
+	}
+
 }
 
 func (r *recorder) getParser() parser.Parser {

@@ -4,7 +4,7 @@ volumes:
     prometheus_data: {}
 services:
   bililive-go:
-    image: chigusa/bililive-go
+    image: chigusa/bililive-go:v0.8.0
     restart: unless-stopped
     container_name: bililive-go
     volumes:
@@ -43,3 +43,25 @@ services:
 #      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/bilipanel.json
 #    ports:
 #      - 3000:3000
+
+  # bililive-go-dev:
+  #   build:
+  #     context: ./docker/bgo-dev
+  #   image: bgo-dev
+  #   container_name: bgo-dev
+  #   ports:
+  #     - 10001:10000
+  #   restart: unless-stopped
+  #   volumes:
+  #     - .:/bililive-go2
+
+  badanmu:
+    build:
+      context: ./docker/badanmu
+      args:
+        GIT_COMMIT: 5296a67aa53119eec05dbefbcb367c6ee7ffe079
+    image: badanmu
+    restart: unless-stopped
+    container_name: badanmu
+    expose:
+      - 8181

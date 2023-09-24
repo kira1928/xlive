@@ -109,6 +109,10 @@ class API {
     getFileList(path: string = "") {
         return utils.requestGet(`${BASE_URL}/file/${path}`);
     }
+
+    getDanmu(path: string) {
+        return utils.requestGet(`${BASE_URL}/danmu/${path}`);
+    }
 }
 
 export default API;

@@ -22,7 +22,7 @@ import (
 
 const (
 	domain = "www.huya.com"
-	cnName = "虎牙"
+	CnName = "虎牙"
 )
 
 func init() {
@@ -39,6 +39,7 @@ func (b *builder) Build(url *url.URL, opt ...live.Option) (live.Live, error) {
 
 type Live struct {
 	internal.BaseLive
+	RoomId string
 }
 
 func (l *Live) GetInfo() (info *live.Info, err error) {
@@ -73,6 +74,7 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 		roomName  = strFilter.Do(utils.Match1(`"introduction":"([^"]*)"`, body))
 		status    = strFilter.Do(utils.Match1(`"isOn":([^,]*),`, body))
 	)
+	l.RoomId = strFilter.Do(utils.Match1(`"profileRoom":(\d+),`, body))
 
 	if hostName == "" || roomName == "" || status == "" {
 		return nil, live.ErrInternalError
@@ -158,5 +160,5 @@ func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
 }
 
 func (l *Live) GetPlatformCNName() string {
-	return cnName
+	return CnName
 }

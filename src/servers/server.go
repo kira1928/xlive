@@ -50,6 +50,7 @@ func initMux(ctx context.Context) *mux.Router {
 	apiRoute.HandleFunc("/lives/{id}", removeLive).Methods("DELETE")
 	apiRoute.HandleFunc("/lives/{id}/{action}", parseLiveAction).Methods("GET")
 	apiRoute.HandleFunc("/file/{path:.*}", getFileInfo).Methods("GET")
+	apiRoute.HandleFunc("/danmu/{path:.*\\.sqlite}", getDanmu).Methods("GET")
 	apiRoute.Handle("/metrics", promhttp.Handler())
 
 	m.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(instance.GetInstance(ctx).Config.OutPutPath))))

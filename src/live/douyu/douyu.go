@@ -29,7 +29,7 @@ Thanks
 */
 const (
 	domain = "www.douyu.com"
-	cnName = "斗鱼"
+	CnName = "斗鱼"
 
 	liveInfoUrl = "https://www.douyu.com/betard"
 	liveEncUrl  = "https://www.douyu.com/swf_api/homeH5Enc"
@@ -142,11 +142,11 @@ func getEngineWithCryptoJS() (*otto.Otto, error) {
 
 type Live struct {
 	internal.BaseLive
-	roomID string
+	RoomID string
 }
 
 func (l *Live) fetchRoomID() error {
-	if l.roomID != "" {
+	if l.RoomID != "" {
 		return nil
 	}
 	var body []byte
@@ -163,7 +163,7 @@ func (l *Live) fetchRoomID() error {
 	}
 	for _, reg := range douyuRoomIDRegs {
 		if str := utils.Match1(reg, string(body)); str != "" {
-			l.roomID = str
+			l.RoomID = str
 			return nil
 		}
 	}
@@ -203,7 +203,7 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 		}
 
 	}
-	resp, err := requests.Get(fmt.Sprintf("%s/%s", liveInfoUrl, l.roomID), live.CommonUserAgent)
+	resp, err := requests.Get(fmt.Sprintf("%s/%s", liveInfoUrl, l.RoomID), live.CommonUserAgent)
 	if err != nil {
 		return nil, err
 	}
@@ -219,13 +219,13 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 		HostName:     gjson.GetBytes(body, "room.owner_name").String(),
 		RoomName:     gjson.GetBytes(body, "room.room_name").String(),
 		Status:       gjson.GetBytes(body, "room.show_status").Int() == 1 && gjson.GetBytes(body, "room.videoLoop").Int() == 0,
-		CustomLiveId: "douyu/" + l.roomID,
+		CustomLiveId: "douyu/" + l.RoomID,
 	}
 	return info, nil
 }
 
 func (l *Live) getSignParams() (map[string]string, error) {
-	resp, err := requests.Get(liveEncUrl, live.CommonUserAgent, requests.Query("rids", l.roomID))
+	resp, err := requests.Get(liveEncUrl, live.CommonUserAgent, requests.Query("rids", l.RoomID))
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +237,7 @@ func (l *Live) getSignParams() (map[string]string, error) {
 		return nil, err
 	}
 
-	jsEnc := gjson.GetBytes(body, "data.room"+l.roomID).String()
+	jsEnc := gjson.GetBytes(body, "data.room"+l.RoomID).String()
 
 	workflow := utils.Match1(workflowReg, jsEnc)
 
@@ -283,7 +283,7 @@ func (l *Live) getSignParams() (map[string]string, error) {
 	}
 	did := strings.ReplaceAll(uuid.Must(uuid.NewV4()).String(), "-", "")
 	ts := time.Now()
-	res, err := engine.Call("ub98484234", nil, l.roomID, did, ts.Unix())
+	res, err := engine.Call("ub98484234", nil, l.RoomID, did, ts.Unix())
 	if err != nil {
 		return nil, err
 	}
@@ -316,7 +316,7 @@ func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
 		return nil, err
 	}
 	resp, err := requests.Post(
-		fmt.Sprintf("%s/%s", liveAPIUrl, l.roomID),
+		fmt.Sprintf("%s/%s", liveAPIUrl, l.RoomID),
 		requests.Form(params),
 		requests.Header("origin", "https://www.douyu.com"),
 		requests.Referer(l.GetRawUrl()),
@@ -344,5 +344,5 @@ func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
 }
 
 func (l *Live) GetPlatformCNName() string {
-	return cnName
+	return CnName
 }

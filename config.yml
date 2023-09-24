@@ -42,3 +42,5 @@ on_record_finished:
 #  custom_commandline: '{{ .Ffmpeg }} -hide_banner -i "{{ .FileName }}" -c copy "{{ .FileName | trimSuffix (.FileName | ext)}}.mp4"'
   custom_commandline: ""
 timeout_in_us: 60000000
+danmu:
+  enable: true

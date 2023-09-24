@@ -9,8 +9,8 @@ require (
 	github.com/alecthomas/kingpin v2.2.7-0.20180312062423-a39589180ebd+incompatible
 	github.com/bluele/gcache v0.0.0-20190518031135-bc40bd653833
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
+	github.com/glebarez/go-sqlite v1.21.2
 	github.com/golang/mock v1.6.0
-	github.com/google/uuid v1.1.2 // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/hr3lxphr6j/requests v0.0.1
 	github.com/huandu/xstrings v1.3.2 // indirect
@@ -26,4 +26,5 @@ require (
 	github.com/tidwall/gjson v1.9.3
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 	gopkg.in/yaml.v2 v2.3.0
+	nhooyr.io/websocket v1.8.7
 )

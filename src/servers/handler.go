@@ -22,6 +22,7 @@ import (
 	"github.com/hr3lxphr6j/bililive-go/src/instance"
 	"github.com/hr3lxphr6j/bililive-go/src/listeners"
 	"github.com/hr3lxphr6j/bililive-go/src/live"
+	"github.com/hr3lxphr6j/bililive-go/src/pkg/utils"
 	"github.com/hr3lxphr6j/bililive-go/src/recorders"
 )
 
@@ -419,4 +420,42 @@ func getFileInfo(writer http.ResponseWriter, r *http.Request) {
 	json.Files = jsonFiles
 
 	writeJSON(writer, json)
+}
+
+func getDanmu(writer http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	path := vars["path"]
+
+	inst := instance.GetInstance(r.Context())
+	base, err := filepath.Abs(inst.Config.OutPutPath)
+	if err != nil {
+		writeJSON(writer, commonResp{
+			ErrMsg: "无效输出目录",
+		})
+		return
+	}
+
+	absPath, err := filepath.Abs(filepath.Join(base, path))
+	if err != nil {
+		writeJSON(writer, commonResp{
+			ErrMsg: "无效路径",
+		})
+		return
+	}
+	if !strings.HasPrefix(absPath, base) {
+		writeJSON(writer, commonResp{
+			ErrMsg: "异常路径",
+		})
+		return
+	}
+
+	danmuList, err := utils.GetDanmuList(absPath)
+	if err != nil {
+		writeJSON(writer, commonResp{
+			ErrMsg: err.Error(),
+		})
+		return
+	}
+
+	writeJSON(writer, danmuList)
 }

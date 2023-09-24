@@ -8,6 +8,7 @@ import { PaginationConfig } from "antd/lib/pagination";
 import { SorterResult } from "antd/lib/table";
 import Artplayer from "artplayer";
 import mpegtsjs from "mpegts.js";
+import artplayerPluginDanmuku from "artplayer-plugin-danmuku";
 
 const api = new API();
 
@@ -100,45 +101,67 @@ class FileList extends React.Component<Props, IState> {
         if (record.is_folder) {
             this.props.history.push("/fileList/" + path);
         } else {
-            this.setState({
-                isPlayerVisible: true,
-            }, () => {
-                const art = new Artplayer({
-                    pip: true,
-                    setting: true,
-                    playbackRate: true,
-                    aspectRatio: true,
-                    flip: true,
-                    autoSize: true,
-                    autoMini: true,
-                    mutex: true,
-                    miniProgressBar: true,
-                    backdrop: false,
-                    fullscreen: true,
-                    fullscreenWeb: true,
-                    lang: 'zh-cn',
-                    container: '#art-container',
-                    url: `files/${path}`,
-                    customType: {
-                        flv: function (video, url) {
-                            if (mpegtsjs.isSupported()) {
-                                const flvPlayer = mpegtsjs.createPlayer({
-                                    type: "flv",
-                                    url: url,
-                                    hasVideo: true,
-                                    hasAudio: true,
-                                }, {});
-                                flvPlayer.attachMediaElement(video);
-                                flvPlayer.load();
-                            } else {
-                                if (art) {
-                                    art.notice.show = "不支持播放格式: flv";
+            if (record.name.match(`.*.flv(.mp4)?$`)) {
+                this.setState({
+                    isPlayerVisible: true,
+                }, () => {
+                    const danmuPath = path.replace(/\.flv(.mp4)?$/, ".sqlite")
+                    const art = new Artplayer({
+                        pip: true,
+                        setting: true,
+                        playbackRate: true,
+                        aspectRatio: true,
+                        flip: true,
+                        autoSize: true,
+                        autoMini: true,
+                        mutex: true,
+                        miniProgressBar: true,
+                        backdrop: false,
+                        fullscreen: true,
+                        fullscreenWeb: true,
+                        lang: 'zh-cn',
+                        container: '#art-container',
+                        url: `files/${path}`,
+                        plugins: [
+                            artplayerPluginDanmuku({
+                                danmuku: () => api
+                                    .getDanmu(danmuPath)
+                                    .then((rsp: any) => {
+                                        if (Array.isArray(rsp)) {
+                                            return rsp;
+                                        } else {
+                                            return [];
+                                        }
+                                    }),
+                                speed: 10,
+                                heatmap: {
+                                    opacity: 0.7
+                                },
+                            }),
+                        ],
+                        customType: {
+                            flv: function (video, url) {
+                                if (mpegtsjs.isSupported()) {
+                                    const flvPlayer = mpegtsjs.createPlayer({
+                                        type: "flv",
+                                        url: url,
+                                        hasVideo: true,
+                                        hasAudio: true,
+                                    }, {});
+                                    flvPlayer.attachMediaElement(video);
+                                    flvPlayer.load();
+                                } else {
+                                    if (art) {
+                                        art.notice.show = "不支持播放格式: flv";
+                                    }
                                 }
-                            }
+                            },
                         },
-                    },
+                    });
                 });
-            });
+            } else if (record.name.match(`.*.sqlite`)) {
+
+            }
         }
     };
 

@@ -16,7 +16,7 @@ import (
 
 const (
 	domain = "live.bilibili.com"
-	cnName = "哔哩哔哩"
+	CnName = "哔哩哔哩"
 
 	roomInitUrl  = "https://api.live.bilibili.com/room/v1/Room/room_init"
 	roomApiUrl   = "https://api.live.bilibili.com/room/v1/Room/get_info"
@@ -38,7 +38,7 @@ func (b *builder) Build(url *url.URL, opt ...live.Option) (live.Live, error) {
 
 type Live struct {
 	internal.BaseLive
-	realID string
+	RealID string
 }
 
 func (l *Live) parseRealId() error {
@@ -62,13 +62,13 @@ func (l *Live) parseRealId() error {
 	if err != nil || gjson.GetBytes(body, "code").Int() != 0 {
 		return live.ErrRoomNotExist
 	}
-	l.realID = gjson.GetBytes(body, "data.room_id").String()
+	l.RealID = gjson.GetBytes(body, "data.room_id").String()
 	return nil
 }
 
 func (l *Live) GetInfo() (info *live.Info, err error) {
 	// Parse the short id from URL to full id
-	if l.realID == "" {
+	if l.RealID == "" {
 		if err := l.parseRealId(); err != nil {
 			return nil, err
 		}
@@ -81,7 +81,7 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 	resp, err := requests.Get(
 		roomApiUrl,
 		live.CommonUserAgent,
-		requests.Query("room_id", l.realID),
+		requests.Query("room_id", l.RealID),
 		requests.Query("from", "room"),
 		requests.Cookies(cookieKVs),
 	)
@@ -105,7 +105,7 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 		Status:   gjson.GetBytes(body, "data.live_status").Int() == 1,
 	}
 
-	resp, err = requests.Get(userApiUrl, live.CommonUserAgent, requests.Query("roomid", l.realID))
+	resp, err = requests.Get(userApiUrl, live.CommonUserAgent, requests.Query("roomid", l.RealID))
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (l *Live) GetInfo() (info *live.Info, err error) {
 }
 
 func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
-	if l.realID == "" {
+	if l.RealID == "" {
 		if err := l.parseRealId(); err != nil {
 			return nil, err
 		}
@@ -135,7 +135,7 @@ func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
 	for _, item := range cookies {
 		cookieKVs[item.Name] = item.Value
 	}
-	query := fmt.Sprintf("?room_id=%s&protocol=0,1&format=0,1,2&codec=0,1&qn=10000&platform=web&ptype=8&dolby=5&panorama=1", l.realID)
+	query := fmt.Sprintf("?room_id=%s&protocol=0,1&format=0,1,2&codec=0,1&qn=10000&platform=web&ptype=8&dolby=5&panorama=1", l.RealID)
 	resp, err := requests.Get(liveApiUrlv2+query, live.CommonUserAgent, requests.Cookies(cookieKVs))
 
 	if err != nil {
@@ -170,5 +170,5 @@ func (l *Live) GetStreamUrls() (us []*url.URL, err error) {
 }
 
 func (l *Live) GetPlatformCNName() string {
-	return cnName
+	return CnName
 }

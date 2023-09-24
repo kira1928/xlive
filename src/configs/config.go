@@ -62,6 +62,10 @@ type Log struct {
 	SaveEveryLog bool   `yaml:"save_every_log"`
 }
 
+type Danmu struct {
+	Enable bool `yaml:"enable"`
+}
+
 // Config content all config info.
 type Config struct {
 	File                 string               `yaml:"-"`
@@ -78,6 +82,7 @@ type Config struct {
 	Cookies              map[string]string    `yaml:"cookies"`
 	OnRecordFinished     OnRecordFinished     `yaml:"on_record_finished"`
 	TimeoutInUs          int                  `yaml:"timeout_in_us"`
+	Danmu                Danmu                `yaml:"danmu"`
 
 	liveRoomIndexCache map[string]int
 }
