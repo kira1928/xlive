@@ -13,6 +13,8 @@ services:
       - ./config.docker.yml:/etc/bililive-go/config.yml
     ports:
       - 8080:8080
+    depends_on:
+      - badanmu
 
 #  prometheus:
 #    image: quay.io/prometheus/prometheus
