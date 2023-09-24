@@ -1,10 +1,11 @@
 version: "3.7"
 
 volumes:
-    prometheus_data: {}
+  prometheus_data: {}
 services:
   bililive-go:
-    image: chigusa/bililive-go:v0.8.0
+    # image: chigusa/bililive-go:v0.8.0
+    image: kira1928/sandbox:bgo-0.8.0-test
     restart: unless-stopped
     container_name: bililive-go
     volumes:
