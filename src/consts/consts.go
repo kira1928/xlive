@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	AppName = "BiliLive-go"
+	AppName = "xlive"
 )
 
 type Info struct {

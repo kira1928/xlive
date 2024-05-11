@@ -17,12 +17,12 @@ import (
 	"github.com/tidwall/gjson"
 	"gopkg.in/yaml.v2"
 
-	"github.com/hr3lxphr6j/bililive-go/src/configs"
-	"github.com/hr3lxphr6j/bililive-go/src/consts"
-	"github.com/hr3lxphr6j/bililive-go/src/instance"
-	"github.com/hr3lxphr6j/bililive-go/src/listeners"
-	"github.com/hr3lxphr6j/bililive-go/src/live"
-	"github.com/hr3lxphr6j/bililive-go/src/recorders"
+	"github.com/kira1928/xlive/src/configs"
+	"github.com/kira1928/xlive/src/consts"
+	"github.com/kira1928/xlive/src/instance"
+	"github.com/kira1928/xlive/src/listeners"
+	"github.com/kira1928/xlive/src/live"
+	"github.com/kira1928/xlive/src/recorders"
 )
 
 // FIXME: remove this

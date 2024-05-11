@@ -1,4 +1,4 @@
-module github.com/hr3lxphr6j/bililive-go
+module github.com/kira1928/xlive
 
 go 1.16
 

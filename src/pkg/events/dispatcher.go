@@ -6,8 +6,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/hr3lxphr6j/bililive-go/src/instance"
-	"github.com/hr3lxphr6j/bililive-go/src/interfaces"
+	"github.com/kira1928/xlive/src/instance"
+	"github.com/kira1928/xlive/src/interfaces"
 )
 
 func NewDispatcher(ctx context.Context) Dispatcher {

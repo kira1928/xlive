@@ -20,15 +20,15 @@ import (
 	"github.com/bluele/gcache"
 	"github.com/sirupsen/logrus"
 
-	"github.com/hr3lxphr6j/bililive-go/src/configs"
-	"github.com/hr3lxphr6j/bililive-go/src/instance"
-	"github.com/hr3lxphr6j/bililive-go/src/interfaces"
-	"github.com/hr3lxphr6j/bililive-go/src/live"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/events"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser/ffmpeg"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser/native/flv"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/utils"
+	"github.com/kira1928/xlive/src/configs"
+	"github.com/kira1928/xlive/src/instance"
+	"github.com/kira1928/xlive/src/interfaces"
+	"github.com/kira1928/xlive/src/live"
+	"github.com/kira1928/xlive/src/pkg/events"
+	"github.com/kira1928/xlive/src/pkg/parser"
+	"github.com/kira1928/xlive/src/pkg/parser/ffmpeg"
+	"github.com/kira1928/xlive/src/pkg/parser/native/flv"
+	"github.com/kira1928/xlive/src/pkg/utils"
 )
 
 const (

@@ -10,7 +10,7 @@ import (
 	time "time"
 
 	gomock "github.com/golang/mock/gomock"
-	live "github.com/hr3lxphr6j/bililive-go/src/live"
+	live "github.com/kira1928/xlive/src/live"
 )
 
 // MockLive is a mock of Live interface.
