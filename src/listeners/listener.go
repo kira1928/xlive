@@ -1,4 +1,4 @@
-//go:generate mockgen -package listeners -destination mock_test.go github.com/hr3lxphr6j/bililive-go/src/listeners Listener,Manager
+//go:generate mockgen -package listeners -destination mock_test.go github.com/kira1928/xlive/src/listeners Listener,Manager
 package listeners
 
 import (
