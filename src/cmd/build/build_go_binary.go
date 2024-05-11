@@ -30,10 +30,10 @@ func BuildGoBinary(isDev bool) {
 	constsPath := "github.com/kira1928/xlive/src/consts"
 	now := fmt.Sprintf("%d", time.Now().Unix())
 	t := template.Must(template.New("ldFlags").Parse(
-		`{{.DebugBuildFlags}} \
-		-X {{.ConstsPath}}.BuildTime={{.Now}} \
-		-X {{.ConstsPath}}.AppVersion={{.AppVersion}} \
-		-X {{.ConstsPath}}.GitHash={{.GitHash}}`))
+		"{{.DebugBuildFlags}} " +
+			"-X {{.ConstsPath}}.BuildTime={{.Now}} " +
+			"-X {{.ConstsPath}}.AppVersion={{.AppVersion}} " +
+			"-X {{.ConstsPath}}.GitHash={{.GitHash}}"))
 
 	var buf bytes.Buffer
 	t.Execute(&buf, map[string]string{

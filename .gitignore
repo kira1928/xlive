@@ -3,9 +3,7 @@
 
 # bililive-go logs
 *.log
-
-# vscode
-.vscode
+coverage.txt
 
 # built files
 bin

@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSaveMode": "file",
+  "[go]": {
+    "editor.insertSpaces": false,
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "golang.go"
+  },
+  "go.formatTool": "default",
+  "go.lintOnSave": "package"
+}

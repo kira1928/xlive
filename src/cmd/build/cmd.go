@@ -3,8 +3,10 @@ package build
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/alecthomas/kingpin"
+	"github.com/kira1928/xlive/src/pkg/utils"
 )
 
 func RunCmd() int {
@@ -12,10 +14,11 @@ func RunCmd() int {
 	app.Command("dev", "Build for development.").Action(devBuild)
 	app.Command("release", "Build for release.").Action(releaseBuild)
 	app.Command("release-docker", "Build for release docker.").Action(releaseDocker)
+	app.Command("test", "Run tests.").Action(goTest)
+	app.Command("generate", "go generate ./...").Action(goGenerate)
 	app.Command("build-web", "Build webapp.").Action(buildWeb)
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
-
 	return 0
 }
 
@@ -34,7 +37,31 @@ func releaseDocker(c *kingpin.ParseContext) error {
 	return nil
 }
 
+func goTest(c *kingpin.ParseContext) error {
+	return utils.ExecCommand([]string{
+		"go", "test",
+		"-tags", "release",
+		"--cover",
+		"-coverprofile=coverage.txt",
+		"./src/...",
+	})
+}
+
+func goGenerate(c *kingpin.ParseContext) error {
+	return utils.ExecCommand([]string{"go", "generate", "./..."})
+}
+
 func buildWeb(c *kingpin.ParseContext) error {
-	fmt.Printf("build-web command\n")
+	webappDir := filepath.Join("src", "webapp")
+	err := utils.ExecCommandsInDir(
+		[][]string{
+			{"yarn", "install"},
+			{"yarn", "build"},
+		},
+		webappDir,
+	)
+	if err != nil {
+		return err
+	}
 	return nil
 }
