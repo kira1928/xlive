@@ -13,9 +13,9 @@ import (
 	"github.com/hr3lxphr6j/requests"
 	"github.com/tidwall/gjson"
 
-	"github.com/hr3lxphr6j/bililive-go/src/live"
-	"github.com/hr3lxphr6j/bililive-go/src/live/internal"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/utils"
+	"github.com/kira1928/xlive/src/live"
+	"github.com/kira1928/xlive/src/live/internal"
+	"github.com/kira1928/xlive/src/pkg/utils"
 )
 
 const (

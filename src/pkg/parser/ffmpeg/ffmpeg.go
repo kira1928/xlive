@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hr3lxphr6j/bililive-go/src/instance"
-	"github.com/hr3lxphr6j/bililive-go/src/live"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/parser"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/utils"
+	"github.com/kira1928/xlive/src/instance"
+	"github.com/kira1928/xlive/src/live"
+	"github.com/kira1928/xlive/src/pkg/parser"
+	"github.com/kira1928/xlive/src/pkg/utils"
 )
 
 const (

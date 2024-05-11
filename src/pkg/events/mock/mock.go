@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	events "github.com/hr3lxphr6j/bililive-go/src/pkg/events"
+	events "github.com/kira1928/xlive/src/pkg/events"
 )
 
 // MockDispatcher is a mock of Dispatcher interface.

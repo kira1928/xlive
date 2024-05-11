@@ -4,12 +4,13 @@ set -o errexit
 set -o nounset
 
 readonly OUTPUT_PATH=bin
-readonly CONSTS_PATH="github.com/hr3lxphr6j/bililive-go/src/consts"
+readonly CONSTS_PATH="github.com/kira1928/xlive/src/consts"
 
 _build() {
   target=$1
   bin_name=$2
   ld_flags=$3
+  set -x
   go build \
     -tags ${TAGS:-"release"} \
     -gcflags="${GCFLAGS:-""}" \

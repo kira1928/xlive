@@ -12,19 +12,19 @@ import (
 
 	"github.com/bluele/gcache"
 
-	_ "github.com/hr3lxphr6j/bililive-go/src/cmd/bililive/internal"
-	"github.com/hr3lxphr6j/bililive-go/src/cmd/bililive/internal/flag"
-	"github.com/hr3lxphr6j/bililive-go/src/configs"
-	"github.com/hr3lxphr6j/bililive-go/src/consts"
-	"github.com/hr3lxphr6j/bililive-go/src/instance"
-	"github.com/hr3lxphr6j/bililive-go/src/listeners"
-	"github.com/hr3lxphr6j/bililive-go/src/live"
-	"github.com/hr3lxphr6j/bililive-go/src/log"
-	"github.com/hr3lxphr6j/bililive-go/src/metrics"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/events"
-	"github.com/hr3lxphr6j/bililive-go/src/pkg/utils"
-	"github.com/hr3lxphr6j/bililive-go/src/recorders"
-	"github.com/hr3lxphr6j/bililive-go/src/servers"
+	_ "github.com/kira1928/xlive/src/cmd/xlive/internal"
+	"github.com/kira1928/xlive/src/cmd/xlive/internal/flag"
+	"github.com/kira1928/xlive/src/configs"
+	"github.com/kira1928/xlive/src/consts"
+	"github.com/kira1928/xlive/src/instance"
+	"github.com/kira1928/xlive/src/listeners"
+	"github.com/kira1928/xlive/src/live"
+	"github.com/kira1928/xlive/src/log"
+	"github.com/kira1928/xlive/src/metrics"
+	"github.com/kira1928/xlive/src/pkg/events"
+	"github.com/kira1928/xlive/src/pkg/utils"
+	"github.com/kira1928/xlive/src/recorders"
+	"github.com/kira1928/xlive/src/servers"
 )
 
 func getConfig() (*configs.Config, error) {

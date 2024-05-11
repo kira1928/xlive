@@ -6,7 +6,7 @@ import (
 	"errors"
 	"net/url"
 
-	"github.com/hr3lxphr6j/bililive-go/src/live"
+	"github.com/kira1928/xlive/src/live"
 )
 
 type Builder interface {
