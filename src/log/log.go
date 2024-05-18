@@ -37,7 +37,7 @@ func New(ctx context.Context) *interfaces.Logger {
 			}
 		}
 		if config.Log.SaveLastLog {
-			logLocation := filepath.Join(outputFolder, "bililive-go.log")
+			logLocation := filepath.Join(outputFolder, "xlive.log")
 			logFile, err := os.OpenFile(logLocation, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 			if err != nil {
 				log.Fatalf("Failed to open default log file %s for output: %s", logLocation, err)

@@ -3,20 +3,20 @@ version: "3.7"
 volumes:
     prometheus_data: {}
 services:
-  bililive-go:
-    image: chigusa/bililive-go
+  xlive:
+    image: kira1928/xlive:latest
     restart: unless-stopped
-    container_name: bililive-go
+    container_name: xlive
     volumes:
-      - ./Videos:/srv/bililive
-      - ./config.docker.yml:/etc/bililive-go/config.yml
+      - ./Videos:/srv/xlive
+      - ./config.docker.yml:/etc/xlive/config.yml
     ports:
       - 8080:8080
 
 #  prometheus:
 #    image: quay.io/prometheus/prometheus
 #    restart: unless-stopped
-#    container_name: bililive-prom
+#    container_name: xlive-prom
 #    volumes:
 #      - prometheus_data:/prometheus
 #      - ./contrib/prometheus:/etc/prometheus
@@ -33,7 +33,7 @@ services:
 #  grafana:
 #    image: grafana/grafana-oss
 #    restart: unless-stopped
-#    container_name: bililive-graf
+#    container_name: xlive-graf
 #    volumes:
 #      - ./contrib/grafana/provisioning:/etc/grafana/provisioning
 #    environment:

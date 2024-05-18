@@ -1,4 +1,4 @@
-//go:generate mockgen -package mock -destination mock/mock.go github.com/hr3lxphr6j/bililive-go/src/pkg/events Dispatcher
+//go:generate mockgen -package mock -destination mock/mock.go github.com/kira1928/xlive/src/pkg/events Dispatcher
 package events
 
 import (

@@ -355,7 +355,7 @@
           "uid": "PBFA97CFB590B2093"
         },
         "definition": "bgo_live_status",
-        "description": "bililive instance name",
+        "description": "xlive instance name",
         "hide": 0,
         "includeAll": true,
         "multi": true,
@@ -408,7 +408,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Bililive Dashboards",
+  "title": "xlive Dashboards",
   "uid": "iXqlPlBnkp",
   "version": 1,
   "weekStart": ""

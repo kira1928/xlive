@@ -22,7 +22,7 @@ _build() {
 build() {
   target=$1
 
-  if [ ${target} = 'bililive' ]; then
+  if [ ${target} = 'xlive' ]; then
     now=$(date '+%Y-%m-%d_%H:%M:%S')
     rev=$(echo "${rev:-$(git rev-parse HEAD)}")
     ver=$(git describe --tags --always)

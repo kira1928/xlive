@@ -1,4 +1,4 @@
-//go:generate mockgen -package recorders -destination mock_test.go github.com/hr3lxphr6j/bililive-go/src/recorders Recorder,Manager
+//go:generate mockgen -package recorders -destination mock_test.go github.com/kira1928/xlive/src/recorders Recorder,Manager
 package recorders
 
 import (
