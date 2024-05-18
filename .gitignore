@@ -1,7 +1,7 @@
 # macOS
 .DS_Store
 
-# bililive-go logs
+# xlive logs
 *.log
 coverage.txt
 

@@ -1,9 +1,9 @@
 #!/bin/sh
 
-HOME=/srv/bililive
+HOME=/srv/xlive
 
 chown -R ${PUID}:${PGID} ${HOME}
 
 umask ${UMASK}
 
-exec su-exec ${PUID}:${PGID} /usr/bin/bililive-go -c /etc/bililive-go/config.yml
+exec su-exec ${PUID}:${PGID} /usr/bin/xlive -c /etc/xlive/config.yml

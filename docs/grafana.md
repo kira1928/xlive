@@ -2,7 +2,7 @@
 
 ## 安装
 1. clone repo
->$ git clone https://github.com/hr3lxphr6j/bililive-go.git
+>$ git clone https://github.com/kira1928/xlive.git
 
 2. 编辑 .env
 自定义账户密码，将example.env保存为.env
@@ -18,7 +18,7 @@
 
 tips
 - 使用默认端口和别的端口冲突时，修改相关ports:
-- `./Videos:/srv/bililive` 默认保存路径需要自定义
+- `./Videos:/srv/xlive` 默认保存路径需要自定义
 
 
 bibliography
@@ -31,11 +31,11 @@ bibliography
 global:
   scrape_interval: 15s
 scrape_configs:
-  - job_name: "bililive"
+  - job_name: "xlive"
     metrics_path: "/api/metrics"
     scheme: http
     static_configs:
-      - targets: ["bililive-go:8080"] #自行修改ip端口
+      - targets: ["xlive:8080"] #自行修改ip端口
 ```
 grafana 需要打开浏览器，然后复制[面板内容](/contrib/grafana/dashboard.json)导入
 

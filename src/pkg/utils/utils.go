@@ -29,7 +29,7 @@ func GetFFmpegPath(ctx context.Context) (string, error) {
 	}
 	path, err := exec.LookPath("ffmpeg")
 	if errors.Is(err, exec.ErrDot) {
-		// put ffmpeg.exe and binary like bililive-windows-amd64.exe to the same folder is allowed
+		// put ffmpeg.exe and binary like xlive-windows-amd64.exe to the same folder is allowed
 		path, err = exec.LookPath("./ffmpeg")
 	}
 	return path, err

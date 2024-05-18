@@ -3,7 +3,7 @@ rpc:
   bind: :8080
 debug: false
 interval: 20
-out_put_path: /srv/bililive
+out_put_path: /srv/xlive
 feature:
   use_native_flv_parser: false
 live_rooms:

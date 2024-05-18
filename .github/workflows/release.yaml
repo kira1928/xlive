@@ -1,10 +1,14 @@
 name: Release
 on:
+  workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - "v*"
+env:
+  IS_ALLOWED_USER: ${{ github.actor == 'kira1928' }}
 jobs:
   release-bins:
+    if: env.IS_ALLOWED_USER
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,27 +24,28 @@ jobs:
         run: make release
       - uses: softprops/action-gh-release@v1
         with:
-          files: 'bin/*'
+          files: "bin/*"
           prerelease: ${{ contains(env.GIT_TAG, 'rc') }}
   release-docker-images:
+    if: env.IS_ALLOWED_USER
     runs-on: ubuntu-latest
     needs:
       - release-bins
     steps:
       - uses: actions/checkout@v2
       - run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
-      - run: if ! echo $GIT_TAG | grep "rc" >/dev/null; then DOCKER_TAGS=chigusa/bililive-go:$GIT_TAG,chigusa/bililive-go:latest; else DOCKER_TAGS=chigusa/bililive-go:$GIT_TAG; fi; echo "DOCKER_TAGS=$DOCKER_TAGS" >> $GITHUB_ENV
+      - run: if ! echo $GIT_TAG | grep "rc" >/dev/null; then DOCKER_TAGS=kira1928/xlive:$GIT_TAG,kira1928/xlive:latest; else DOCKER_TAGS=kira1928/xlive:$GIT_TAG; fi; echo "DOCKER_TAGS=$DOCKER_TAGS" >> $GITHUB_ENV
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       - name: Docker Setup Buildx
-        uses: docker/setup-buildx-action@v1.5.1
+        uses: docker/setup-buildx-action@v3
       - name: Log in to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      - name: Build the Docker image
-        uses: docker/build-push-action@v2.6.1
+      - name: Build and push
+        uses: docker/build-push-action@v5
         with:
           file: Dockerfile
           build-args: tag=${{ env.GIT_TAG }}

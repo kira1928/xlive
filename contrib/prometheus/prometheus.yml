@@ -19,7 +19,7 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: "bililive"
+  - job_name: "xlive"
     static_configs:
-      - targets: ["bililive-go:8080"]
+      - targets: ["xlive:8080"]
     metrics_path: "/api/metrics"

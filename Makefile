@@ -1,4 +1,10 @@
 
+build: xlive
+.PHONY: build
+
+xlive:
+	@go run build.go release
+
 .PHONY: dev
 dev:
 	@go run build.go dev

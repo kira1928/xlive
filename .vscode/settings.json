@@ -10,6 +10,9 @@
     },
     "editor.defaultFormatter": "golang.go"
   },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   "go.formatTool": "default",
   "go.lintOnSave": "package"
 }

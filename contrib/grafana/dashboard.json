@@ -357,7 +357,7 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "bgo_live_status",
-        "description": "bililive instance name",
+        "description": "xlive instance name",
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -406,7 +406,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Bililive Dashboard",
+  "title": "xlive Dashboard",
   "uid": "iXqlPlBnk",
   "version": 20
 }
