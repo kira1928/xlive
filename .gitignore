@@ -7,3 +7,7 @@ coverage.txt
 
 # built files
 bin
+
+ForDev
+external_tools
+ffmpeg.exe

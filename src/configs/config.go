@@ -38,8 +38,13 @@ func (r *RPC) verify() error {
 
 // Feature info.
 type Feature struct {
-	UseNativeFlvParser         bool `yaml:"use_native_flv_parser"`
-	RemoveSymbolOtherCharacter bool `yaml:"remove_symbol_other_character"`
+	Downloader                 Downloader `yaml:"downloader"`
+	RemoveSymbolOtherCharacter bool       `yaml:"remove_symbol_other_character"`
+}
+
+type Downloader struct {
+	Default string `yaml:"default"`
+	Flv     string `yaml:"flv"`
 }
 
 // VideoSplitStrategies info.
@@ -134,7 +139,10 @@ var defaultConfig = Config{
 		SaveEveryLog: false,
 	},
 	Feature: Feature{
-		UseNativeFlvParser:         false,
+		Downloader: Downloader{
+			Default: "ffmpeg",
+			Flv:     "ffmpeg",
+		},
 		RemoveSymbolOtherCharacter: false,
 	},
 	LiveRooms:          []LiveRoom{},

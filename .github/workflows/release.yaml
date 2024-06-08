@@ -6,6 +6,7 @@ on:
       - "v*"
 env:
   IS_ALLOWED_USER: ${{ github.actor == 'kira1928' }}
+
 jobs:
   release-bins:
     if: env.IS_ALLOWED_USER

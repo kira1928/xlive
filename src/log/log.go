@@ -14,6 +14,15 @@ import (
 	"github.com/kira1928/xlive/src/interfaces"
 )
 
+var globalLogger *interfaces.Logger
+
+func SetInstance(inst *interfaces.Logger) {
+	globalLogger = inst
+}
+func Get() *interfaces.Logger {
+	return globalLogger
+}
+
 func New(ctx context.Context) *interfaces.Logger {
 	inst := instance.GetInstance(ctx)
 	logLevel := logrus.InfoLevel

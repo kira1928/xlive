@@ -7,6 +7,7 @@ import (
 	_ "github.com/kira1928/xlive/src/live/cc"
 	_ "github.com/kira1928/xlive/src/live/douyin"
 	_ "github.com/kira1928/xlive/src/live/douyu"
+	_ "github.com/kira1928/xlive/src/live/fordev"
 	_ "github.com/kira1928/xlive/src/live/hongdoufm"
 	_ "github.com/kira1928/xlive/src/live/huajiao"
 	_ "github.com/kira1928/xlive/src/live/huomao"
@@ -24,4 +25,5 @@ import (
 	_ "github.com/kira1928/xlive/src/live/yizhibo"
 	_ "github.com/kira1928/xlive/src/live/yy"
 	_ "github.com/kira1928/xlive/src/live/zhanqi"
+	_ "github.com/kira1928/xlive/src/pkg/parser/brec"
 )
