@@ -8,6 +8,6 @@ coverage.txt
 # built files
 bin
 
-ForDev
+ForDev*
 external_tools
 ffmpeg.exe

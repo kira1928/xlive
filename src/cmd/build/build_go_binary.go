@@ -13,7 +13,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func BuildGoBinary(isDev bool) {
+func BuildGoBinary(isDev bool) (err error) {
 	goHostOS := runtime.GOOS
 	goHostArch := runtime.GOARCH
 	goVersion := runtime.Version()
@@ -63,10 +63,11 @@ func BuildGoBinary(isDev bool) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	log.Print(cmd.String())
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		fmt.Printf("Command finished with error: %v", err)
 	}
+	return
 }
 
 func generateBinaryName() string {

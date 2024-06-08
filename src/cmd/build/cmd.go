@@ -23,13 +23,11 @@ func RunCmd() int {
 }
 
 func devBuild(c *kingpin.ParseContext) error {
-	BuildGoBinary(true)
-	return nil
+	return BuildGoBinary(true)
 }
 
 func releaseBuild(c *kingpin.ParseContext) error {
-	BuildGoBinary(false)
-	return nil
+	return BuildGoBinary(false)
 }
 
 func releaseDocker(c *kingpin.ParseContext) error {
@@ -53,15 +51,11 @@ func goGenerate(c *kingpin.ParseContext) error {
 
 func buildWeb(c *kingpin.ParseContext) error {
 	webappDir := filepath.Join("src", "webapp")
-	err := utils.ExecCommandsInDir(
+	return utils.ExecCommandsInDir(
 		[][]string{
 			{"yarn", "install"},
 			{"yarn", "build"},
 		},
 		webappDir,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }

@@ -7,7 +7,6 @@ import (
 	_ "github.com/kira1928/xlive/src/live/cc"
 	_ "github.com/kira1928/xlive/src/live/douyin"
 	_ "github.com/kira1928/xlive/src/live/douyu"
-	_ "github.com/kira1928/xlive/src/live/fordev"
 	_ "github.com/kira1928/xlive/src/live/hongdoufm"
 	_ "github.com/kira1928/xlive/src/live/huajiao"
 	_ "github.com/kira1928/xlive/src/live/huomao"
