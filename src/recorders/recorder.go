@@ -26,8 +26,6 @@ import (
 	"github.com/kira1928/xlive/src/live"
 	"github.com/kira1928/xlive/src/pkg/events"
 	"github.com/kira1928/xlive/src/pkg/parser"
-	"github.com/kira1928/xlive/src/pkg/parser/ffmpeg"
-	"github.com/kira1928/xlive/src/pkg/parser/native/flv"
 	"github.com/kira1928/xlive/src/pkg/utils"
 )
 
@@ -40,10 +38,10 @@ const (
 
 // for test
 var (
-	newParser = func(u *url.URL, useNativeFlvParser bool, cfg map[string]string) (parser.Parser, error) {
-		parserName := ffmpeg.Name
-		if strings.Contains(u.Path, ".flv") && useNativeFlvParser {
-			parserName = flv.Name
+	newParser = func(u *url.URL, downloader configs.Downloader, cfg map[string]string) (parser.Parser, error) {
+		parserName := downloader.Default
+		if strings.Contains(u.Path, ".flv") && downloader.Flv != "" {
+			parserName = downloader.Flv
 		}
 		return parser.New(parserName, cfg)
 	}
@@ -148,7 +146,7 @@ func (r *recorder) tryRecord(ctx context.Context) {
 	if r.config.Debug {
 		parserCfg["debug"] = "true"
 	}
-	p, err := newParser(url, r.config.Feature.UseNativeFlvParser, parserCfg)
+	p, err := newParser(url, r.config.Feature.Downloader, parserCfg)
 	if err != nil {
 		r.getLogger().WithError(err).Error("failed to init parse")
 		return

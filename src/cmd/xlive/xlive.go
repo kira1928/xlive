@@ -22,6 +22,7 @@ import (
 	"github.com/kira1928/xlive/src/log"
 	"github.com/kira1928/xlive/src/metrics"
 	"github.com/kira1928/xlive/src/pkg/events"
+	"github.com/kira1928/xlive/src/pkg/tools"
 	"github.com/kira1928/xlive/src/pkg/utils"
 	"github.com/kira1928/xlive/src/recorders"
 	"github.com/kira1928/xlive/src/servers"
@@ -76,6 +77,7 @@ func main() {
 	ctx := context.WithValue(context.Background(), instance.Key, inst)
 
 	logger := log.New(ctx)
+	log.SetInstance(logger)
 	logger.Infof("%s Version: %s Link Start", consts.AppName, consts.AppVersion)
 	if config.File != "" {
 		logger.Debugf("config path: %s.", config.File)
@@ -87,8 +89,10 @@ func main() {
 	logger.Debugf("%+v", consts.AppInfo)
 	logger.Debugf("%+v", inst.Config)
 
+	tools.Init()
+
 	if !utils.IsFFmpegExist(ctx) {
-		logger.Fatalln("FFmpeg binary not found, Please Check.")
+		// logger.Fatalln("FFmpeg binary not found, Please Check.")
 	}
 
 	events.NewDispatcher(ctx)

@@ -24,4 +24,5 @@ import (
 	_ "github.com/kira1928/xlive/src/live/yizhibo"
 	_ "github.com/kira1928/xlive/src/live/yy"
 	_ "github.com/kira1928/xlive/src/live/zhanqi"
+	_ "github.com/kira1928/xlive/src/pkg/parser/brec"
 )
