@@ -23,18 +23,18 @@
     }
   },
   "ffmpeg": {
-    "version": "autobuild-2024-06-08-13-28-35",
+    "version": "autobuild-2024-06-18-15-50-47",
     "downloadUrl": {
       "darwin": {
-        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-08-13-28-35/ffmpeg-windows-x64.zip",
-        "arm64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-08-13-28-35/ffmpeg-macos-arm64.zip"
+        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-18-15-50-47/ffmpeg-windows-x64.zip",
+        "arm64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-18-15-50-47/ffmpeg-macos-arm64.zip"
       },
       "linux": {
-        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-08-13-28-35/ffmpeg-linux-x64.zip",
-        "arm64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-08-13-28-35/ffmpeg-linux-arm64.zip"
+        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-18-15-50-47/ffmpeg-linux-x64.zip",
+        "arm64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-18-15-50-47/ffmpeg-linux-arm64.zip"
       },
       "windows": {
-        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-08-13-28-35/ffmpeg-windows-x64.zip"
+        "amd64": "https://github.com/kira1928/FFmpeg/releases/download/autobuild-2024-06-18-15-50-47/ffmpeg-windows-x64.zip"
       }
     },
     "pathToEntry": {

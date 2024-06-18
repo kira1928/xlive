@@ -9,7 +9,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.7.4
 	github.com/hr3lxphr6j/requests v0.0.1
-	github.com/kira1928/remotetools v0.0.0-20240525182020-63d6690c9659
+	github.com/kira1928/remotetools v0.1.0
 	github.com/lthibault/jitterbug v2.0.0+incompatible
 	github.com/prometheus/client_golang v1.11.0
 	github.com/robertkrimen/otto v0.0.0-20191219234010-c382bd3c16ff

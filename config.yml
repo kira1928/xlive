@@ -10,7 +10,9 @@ log:
   save_last_log: true
   save_every_log: false
 feature:
-  use_native_flv_parser: false
+  downloader:
+    default: ffmpeg
+    flv: brec
 live_rooms:
 # qulity参数目前仅B站启用，默认为0
 # (B站)0代表原画PRO(HEVC)优先, 其他数值为原画(AVC)
