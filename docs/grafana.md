@@ -1,4 +1,14 @@
-# 三合一简化安装，原本的文档太晦涩了。
+## Grafana 面板
+
+docker compose 用户可以取消项目根目录下 `docker-compose.yml` 文件中 prometheus 和 grafana 部分的注释以启用统计面板。  
+这里是 [设置说明](#%E4%B8%89%E5%90%88%E4%B8%80%E7%AE%80%E5%8C%96%E5%AE%89%E8%A3%85)
+
+非 docker compose 用户需要自行部署 prometheus 和 grafana。  
+这里是 [一些建议](#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0)
+
+![image](dashboard.webp)
+
+# 三合一简化安装
 
 ## 安装
 1. clone repo
